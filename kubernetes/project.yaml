@@ -1,0 +1,30 @@
+# project.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-consumer
+  name: kafka-consumer
+  namespace: default
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+      name: kafka-consumer
+      namespace: default
+    spec:
+      containers:
+        - image: ghcr.io/mustafaguc/kafka-consumer:latest
+          imagePullPolicy: Always
+          name: container-0
+          resources: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: my-docker-registry
+      restartPolicy: Always
